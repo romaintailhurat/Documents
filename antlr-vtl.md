@@ -27,3 +27,32 @@ warning(154): Vtl.g4:321:0: rule joinExpr contains an optional block with at lea
 ```
 
 ### Parser verification
+
+The TestRig tool can be used to check the parser. We first need to compile the Java classes previously generated:
+
+```
+%JAVA_HOME%\bin\javac -cp antlr-4.7.2-complete.jar Vtl*.java
+```
+
+We can then analyse a VTL expression, for example (line 2643 of the VTL [reference manual](https://sdmx.org/wp-content/uploads/VTL-2.0-Reference-Manual-20180712-final.pdf)):
+
+```
+DS_r := DS_1[calc Me_2 := upper(Me_1)]
+```
+
+Save this VTL statement in a `vtl-example.txt` file and run the following command:
+
+```
+java -cp .;antlr-4.7.2-complete.jar org.antlr.v4.gui.TestRig Vtl start -tree -ps vtl-example.ps vtl-example.txt
+```
+
+This outputs the structure of the statement:
+
+```
+(start (statement (varID DS_r) := (expr (exprAtom (ref (varID DS_1))) [ (datasetClause (calcClause calc (calcClauseItem (componentID Me_2) := (calcExpr (expr (exprAtom upper ( (expr exprAtom (ref (varID Me_1)))) ))))))) ])) <EOF>)
+```
+
+A `vtl-example.ps` is also produced, which contain an image of the parse tree corresponding to the VTL statement:
+
+![Parse tree](/img/vtl-example.png "Parse tree")
+
