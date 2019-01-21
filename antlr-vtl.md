@@ -26,6 +26,8 @@ We can notice that the VTL grammar produces a warning message:
 warning(154): Vtl.g4:321:0: rule joinExpr contains an optional block with at least one alternative that can match an empty string
 ```
 
+The previous command generates generates several Java classes and related resources: the VTL lexer (or tokenizer), the parser, the listener and the visitor (see [here](https://github.com/antlr/antlr4/blob/master/doc/listeners.md)) and [here](https://saumitra.me/blog/antlr4-visitor-vs-listener-pattern/) for details on the listeners and visitors).
+
 ### Parser verification
 
 The TestRig tool can be used to check the parser. We first need to compile the Java classes previously generated:
@@ -52,7 +54,27 @@ This outputs the structure of the statement:
 (start (statement (varID DS_r) := (expr (exprAtom (ref (varID DS_1))) [ (datasetClause (calcClause calc (calcClauseItem (componentID Me_2) := (calcExpr (expr (exprAtom upper ( (expr exprAtom (ref (varID Me_1)))) ))))))) ])) <EOF>)
 ```
 
-A `vtl-example.ps` is also produced, which contain an image of the parse tree corresponding to the VTL statement:
+A `vtl-example.ps` is also produced, which contains an image of the parse tree corresponding to the VTL statement:
 
 ![Parse tree](/img/vtl-example.png "Parse tree")
 
+### JavaScript parser generation
+
+The JavaScript artefacts are generated with a specific option added to the previous command:
+
+```
+java -jar antlr-4.7.2-complete.jar -Dlanguage=JavaScript -visitor Vtl.g4
+```
+
+This creates the JavaScript lexer, parser, listener and visitor in the working directory.
+
+## Using the VTL parsers
+
+(TBP)
+
+## References
+
+  * The [Antler 4 Documentation](https://github.com/antlr/antlr4/blob/master/doc/index.md)
+  * The [Antlr Mega Tutorial](https://tomassetti.me/antlr-mega-tutorial/) by Federico Tomassetti
+  * [Compiler in JavaScript using ANTLR](https://medium.com/dailyjs/compiler-in-javascript-using-antlr-9ec53fd2780f) by Alena Khineika
+  
