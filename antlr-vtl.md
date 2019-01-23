@@ -10,7 +10,7 @@ Le language used here is [VTL 2.0](https://sdmx.org/?page_id=5096), the Validati
 
 In the following code examples, we use a Windows system and suppose that the JAVA_HOME environment variable is set.
 
-Create a working directory and download the latest version of Antl: we refer here to [version 4.7.2](https://www.antlr.org/download/antlr-4.7.2-complete.jar). Place also in the directory the VTL grammar, described in the `Vtl.g4` and `VtlTokens.g4` files of the [VTL 2.0 package](https://sdmx.org/wp-content/uploads/VTL-2.0-package-2018.07.12.zip).
+Create a working directory and download the latest version of Antlr: we refer here to [version 4.7.2](https://www.antlr.org/download/antlr-4.7.2-complete.jar). Place also in the directory the VTL grammar, described in the `Vtl.g4` and `VtlTokens.g4` files of the [VTL 2.0 package](https://sdmx.org/wp-content/uploads/VTL-2.0-package-2018.07.12.zip).
 
 ### Java parser generation
 
@@ -26,7 +26,7 @@ We can notice that the VTL grammar produces a warning message:
 warning(154): Vtl.g4:321:0: rule joinExpr contains an optional block with at least one alternative that can match an empty string
 ```
 
-The previous command generates generates several Java classes and related resources: the VTL lexer (or tokenizer), the parser, the listener and the visitor (see [here](https://github.com/antlr/antlr4/blob/master/doc/listeners.md)) and [here](https://saumitra.me/blog/antlr4-visitor-vs-listener-pattern/) for details on the listeners and visitors).
+The previous command generates several Java classes and related resources: the VTL lexer (or tokenizer), the parser, the listener and the visitor (see [here](https://github.com/antlr/antlr4/blob/master/doc/listeners.md)) and [here](https://saumitra.me/blog/antlr4-visitor-vs-listener-pattern/) for details on the listeners and visitors).
 
 ### Parser verification
 
@@ -70,7 +70,17 @@ This creates the JavaScript lexer, parser, listener and visitor in the working d
 
 ## Using the VTL parsers
 
-(TBP)
+### In Java
+
+For an example of how to use the VTL parser in Java, we will write a web service taking a VTL expression and returning the parse tree as text.
+
+We will use the [quick start example](https://jersey.github.io/documentation/latest/getting-started.html) provided by GlassFish Jersey. If needed, install [Maven](https://maven.apache.org/) and run the following command:
+
+```
+mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false -DgroupId=test.insee.vtl -DartifactId=vtl-service -Dpackage=test.insee.vtl -DarchetypeVersion=2.27
+```
+
+### In JavaScript
 
 ## References
 
